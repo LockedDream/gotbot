@@ -1,0 +1,12 @@
+.vscode/
+__pycache__/
+
+# venv
+venv/
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# secrets
+.env

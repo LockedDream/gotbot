@@ -1,0 +1,5 @@
+# NOTE: Create a copy of this file called `.env`, and write the values there
+# Do NOT write them here, it does nothing and can make them publicly visible
+
+# Your bot token, as given by https://discord.com/developers/applications
+TOKEN=PASTE_HERE

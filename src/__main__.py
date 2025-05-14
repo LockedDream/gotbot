@@ -54,8 +54,6 @@ async def on_message(message):
         '<:got:960624295359438878>'
     ]
 
-    reactdamn = random.choice(reactgot)
-
     if message.author == client.user:
         return
     
@@ -70,6 +68,7 @@ async def on_message(message):
 
     if 'got' in message.content.lower():
         # reacts with a random got emoji when any message contains any possible "got"
+        reactdamn = random.choice(reactgot)
 
         print(f'got detected: {message.content}\n'
         f'reacting: {reactdamn}'
@@ -79,7 +78,8 @@ async def on_message(message):
 
     if client.user.mentioned_in(message):
         # responds with a random got emoji when a message mentions the gotbot
-
+        reactdamn = random.choice(reactgot)
+        
         print(f'got mentioned: {message.content}\n'
               f'posting: {reactdamn}'
               )

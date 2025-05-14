@@ -59,7 +59,17 @@ async def on_message(message):
     if message.author == client.user:
         return
     
-    if message.content in truegot:
+    if client.user.mentioned_in(message):
+        # responds with a random got image when a message mentions the gotbot
+        librarydamn = random.choice(thisgotexists)
+
+        print(f'got mentioned: {message.content}\n'
+              f'posting: {librarydamn}'
+              )
+        
+        await message.channel.send(f'{librarydamn}')
+
+    elif message.content in truegot:
         # mimics a got when any message is just a got emoji
 
         print(f'got spotted: {message.content}\n'
@@ -77,16 +87,6 @@ async def on_message(message):
         )
 
         await message.add_reaction(f'{reactdamn}')
-
-    elif client.user.mentioned_in(message):
-        # responds with a random got image when a message mentions the gotbot
-        librarydamn = random.choice(thisgotexists)
-
-        print(f'got mentioned: {message.content}\n'
-              f'posting: {librarydamn}'
-              )
-        
-        await message.channel.send(f'{librarydamn}')
 
     elif random.randint(0,65535) < 1:
         # exceedingly rare chance to post a specific got image

@@ -66,7 +66,7 @@ async def on_message(message):
         
         await message.channel.send(f'{message.content}')
 
-    if 'got' in message.content.lower():
+    elif 'got' in message.content.lower():
         # reacts with a random got emoji when any message contains any possible "got"
         reactdamn = random.choice(reactgot)
 
@@ -76,10 +76,10 @@ async def on_message(message):
 
         await message.add_reaction(f'{reactdamn}')
 
-    if client.user.mentioned_in(message):
+    elif client.user.mentioned_in(message):
         # responds with a random got emoji when a message mentions the gotbot
         reactdamn = random.choice(reactgot)
-        
+
         print(f'got mentioned: {message.content}\n'
               f'posting: {reactdamn}'
               )

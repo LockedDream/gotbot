@@ -58,6 +58,15 @@ async def on_message(message):
 
     if message.author == client.user:
         return
+    
+    if message.content in truegot:
+        # mimics a got when any message is just a got emoji
+
+        print(f'got spotted: {message.content}\n'
+              f'copying: {message.content}'
+              )
+        
+        await message.channel.send(f'{message.content}')
 
     if 'got' in message.content.lower():
         # reacts with a random got emoji when any message contains any possible "got"
@@ -77,14 +86,7 @@ async def on_message(message):
         
         await message.channel.send(f'{reactdamn}')
 
-    if message.content in truegot:
-        # mimics a got when any message is just a got emoji
 
-        print(f'got spotted: {message.content}\n'
-              f'copying: {message.content}'
-              )
-        
-        await message.channel.send(f'{message.content}')
 
 if __name__ == "__main__":
     # Load the .env vars

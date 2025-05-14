@@ -54,7 +54,7 @@ async def on_message(message):
         '<:got:960624295359438878>'
     ]
 
-    from got_lib import thisgotexists
+    from src.got_lib import thisgotexists
 
     if message.author == client.user:
         return

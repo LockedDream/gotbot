@@ -54,6 +54,8 @@ async def on_message(message):
         '<:got:960624295359438878>'
     ]
 
+    from got_lib import thisgotexists
+
     if message.author == client.user:
         return
     
@@ -77,14 +79,23 @@ async def on_message(message):
         await message.add_reaction(f'{reactdamn}')
 
     elif client.user.mentioned_in(message):
-        # responds with a random got emoji when a message mentions the gotbot
-        reactdamn = random.choice(reactgot)
+        # responds with a random got image when a message mentions the gotbot
+        librarydamn = random.choice(thisgotexists)
 
         print(f'got mentioned: {message.content}\n'
-              f'posting: {reactdamn}'
+              f'posting: {librarydamn}'
               )
         
-        await message.channel.send(f'{reactdamn}')
+        await message.channel.send(f'{librarydamn}')
+
+    elif random.randint(0,65535) < 1:
+        # exceedingly rare chance to post a specific got image
+
+        print(f'exceedingly rare got spawned\n'
+              f'posting gotdamnsaid'
+              )
+
+        await message.channel.send("https://cdn.discordapp.com/attachments/876964859353378896/1372214065824268288/gotdamsaid.png")
 
 
 

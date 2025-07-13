@@ -9,57 +9,57 @@ import random
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix='ef9359e4d2422d95ec40b9742d312d14374734b1',intents=intents)
 
-@client.event
+reactgot = [
+    '<:got666:1370384342957953105>',
+    '<:got17:1370384315111964672>',
+    '<:gotsip:1370384287861440573>',
+    '<:gotjudged:1370384259931443252>',
+    '<:gotdavid:1370384225295011932>',
+    '<:gotblast:1370384200976433232>',
+    '<:got9:1370384162925838427>',
+    '<:got2:1370384127819382864>',
+    '<:gotlurk:1370384100908597269>',
+    '<:gotstare:1370384073746550835>',
+    '<:gotdamned:1370384042024763572>',
+    '<:gotenough:1370384012069044336>',
+    '<:gotwtf:1370383982251868160>',
+    '<:got:1370383947795533976>']
+
+truegot = [
+    '<:got666:1137419671570747554>',
+    '<:got17:1296102708993982516>',
+    '<:gotsip:979065494508286053>',
+    '<:gotjudged:1001592848862421083>',
+    '<:gotdavid:1005132112753594408>',
+    '<:gotblast:1096080392999665745>',
+    '<:got9:997269024595521557>',
+    '<:got2:962520319795556402>',
+    '<:gotlurk:974758117113987163>',
+    '<:gotstare:958064790180360283>',
+    '<:gotdamned:993552515025096714>',
+    '<:gotenough:960565590085480458>',
+    '<:gotwtf:922546697350053908>',
+    '<:got:960624295359438878>',
+    '<a:gotdamn:1374358305962594304>']
+
+@bot.event
 async def on_ready():
     print(
         'We are:\n'
-        f'Username: {client.user.name!r}\n'
-        f'ID: {client.user.id}'
+        f'Username: {bot.user.name!r}\n'
+        f'ID: {bot.user.id}'
     )
 
-@client.event
+@bot.event
 async def on_message(message):
-    reactgot = [
-        '<:got666:1370384342957953105>',
-        '<:got17:1370384315111964672>',
-        '<:gotsip:1370384287861440573>',
-        '<:gotjudged:1370384259931443252>',
-        '<:gotdavid:1370384225295011932>',
-        '<:gotblast:1370384200976433232>',
-        '<:got9:1370384162925838427>',
-        '<:got2:1370384127819382864>',
-        '<:gotlurk:1370384100908597269>',
-        '<:gotstare:1370384073746550835>',
-        '<:gotdamned:1370384042024763572>',
-        '<:gotenough:1370384012069044336>',
-        '<:gotwtf:1370383982251868160>',
-        '<:got:1370383947795533976>']
-    
-    truegot = [
-        '<:got666:1137419671570747554>',
-        '<:got17:1296102708993982516>',
-        '<:gotsip:979065494508286053>',
-        '<:gotjudged:1001592848862421083>',
-        '<:gotdavid:1005132112753594408>',
-        '<:gotblast:1096080392999665745>',
-        '<:got9:997269024595521557>',
-        '<:got2:962520319795556402>',
-        '<:gotlurk:974758117113987163>',
-        '<:gotstare:958064790180360283>',
-        '<:gotdamned:993552515025096714>',
-        '<:gotenough:960565590085480458>',
-        '<:gotwtf:922546697350053908>',
-        '<:got:960624295359438878>'
-    ]
-
     from src.got_lib import thisgotexists
 
-    if message.author == client.user:
+    if message.author == bot.user:
         return
     
-    if client.user.mentioned_in(message):
+    if bot.user.mentioned_in(message):
         # responds with a random got image when a message mentions the gotbot
         librarydamn = random.choice(thisgotexists)
 
@@ -97,7 +97,29 @@ async def on_message(message):
 
         await message.channel.send("https://cdn.discordapp.com/attachments/876964859353378896/1372214065824268288/gotdamsaid.png")
 
+@bot.tree.context_menu(name='gotbomb')
+async def gotbomb(interaction: discord.Interaction, message: discord.Message):
+    """
+    Bombs the given message with gots
 
+    https://github.com/64andy
+    """
+    # All commands need a response, otherwise Discord thinks it failed
+    await interaction.response.send_message("got damn!!!",
+                                            ephemeral=True, delete_after=1.0
+    )
+    # Randomise the reaction order
+    gotdeck = reactgot.copy()
+    random.shuffle(gotdeck)
+    
+    # 1/20 chance of playing the special gotdamn
+    raregot = (random.randint(0, 19) == 0)
+    if raregot:
+        await message.add_reaction('<a:gotdamn:1374358305962594304>')
+    else:
+        for got in gotdeck:
+            await message.add_reaction(got)
+            await asyncio.sleep(0.3)    # Helps mitigate rate-limiting
 
 if __name__ == "__main__":
     # Load the .env vars
@@ -107,4 +129,4 @@ if __name__ == "__main__":
         token = os.environ['TOKEN']
     except KeyError:
         raise KeyError("Environment variable 'TOKEN' is not set. Have you created a .env file?")
-    client.run(token)
+    bot.run(token)

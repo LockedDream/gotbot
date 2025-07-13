@@ -11,6 +11,16 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix='ef9359e4d2422d95ec40b9742d312d14374734b1',intents=intents)
 
+@bot.event
+async def on_ready():
+    await bot.tree.sync()
+    print(
+        'We are:\n'
+        f'Username: {bot.user.name!r}\n'
+        f'ID: {bot.user.id}'
+    )
+
+
 reactgot = [
     '<:got666:1370384342957953105>',
     '<:got17:1370384315111964672>',
@@ -44,13 +54,6 @@ truegot = [
     '<:got:960624295359438878>',
     '<a:gotdamn:1374358305962594304>']
 
-@bot.event
-async def on_ready():
-    print(
-        'We are:\n'
-        f'Username: {bot.user.name!r}\n'
-        f'ID: {bot.user.id}'
-    )
 
 @bot.event
 async def on_message(message):
